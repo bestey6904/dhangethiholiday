@@ -42,3 +42,14 @@ export interface CalendarDay {
   dayLabel: string;
   dayNumber: number;
 }
+
+export interface Toast {
+  id: string;
+  message: string;
+  type: 'info' | 'success' | 'warning';
+  staffName?: string;
+}
+
+export type SyncMessage = 
+  | { type: 'BOOKING_UPDATE'; bookings: Booking[]; staffName: string }
+  | { type: 'ROOM_UPDATE'; rooms: Room[]; staffName: string };
