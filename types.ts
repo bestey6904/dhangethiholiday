@@ -22,17 +22,20 @@ export interface Room {
   number: string;
   type: RoomType;
   status: RoomStatus;
+  lastUpdated?: number;
 }
 
 export interface Booking {
   id: string;
   roomId: string;
   guestName: string;
-  startDate: string; // ISO format
-  endDate: string;   // ISO format
+  startDate: string; 
+  endDate: string;   
   staffId: string;
+  staffName: string;
   status: 'Booked' | 'CheckedIn' | 'Completed';
   notes?: string;
+  updatedAt: number;
 }
 
 export interface CalendarDay {
@@ -43,13 +46,20 @@ export interface CalendarDay {
   dayNumber: number;
 }
 
+export interface Activity {
+  id: string;
+  message: string;
+  timestamp: number;
+  staffName: string;
+  type: 'booking' | 'status' | 'system';
+}
+
 export interface Toast {
   id: string;
   message: string;
   type: 'info' | 'success' | 'warning';
-  staffName?: string;
 }
 
 export type SyncMessage = 
-  | { type: 'BOOKING_UPDATE'; bookings: Booking[]; staffName: string }
-  | { type: 'ROOM_UPDATE'; rooms: Room[]; staffName: string };
+  | { type: 'SYNC_BOOKINGS'; data: Booking[]; staffName: string }
+  | { type: 'SYNC_ROOMS'; data: Room[]; staffName: string };
